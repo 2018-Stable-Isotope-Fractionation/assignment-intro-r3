@@ -1,0 +1,110 @@
+---
+title: "R Intro (part 3)"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    df_print: paged
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+editor_options:
+  chunk_output_type: inline
+---
+
+
+```{r "setup", echo=FALSE, message=FALSE, warning=FALSE}
+# load all the libraries
+library(tidyverse)
+library(swirl)
+library(testthat)
+```
+
+# 1. `Tidy data` chapter in R for Data Science book
+
+[*R for Data Science*](http://r4ds.had.co.nz/) is an excellent book and resource for approaches to data science in R. I highly recommend bookmarking the link and using it as a reference whenever you want to learn more about the most up-to-date way of dealing with specific data manipulation and processing problems. For the `swirl()` lessons in this assignment, the chapter on **Tidy data** will provide some valuable background. Please read the following sections (no need to do the exercises, there will be similar questions in swirl) in the [**Tiday data** chapter](http://r4ds.had.co.nz/tidy-data.html#tidy-data-1):
+
+ - 12.1 Introduction
+ - 12.2 Tidy data
+ - 12.3 Spreading and gathering
+ - 12.4 Separating and uniting
+
+
+# 2. Grouping and chaining in dplyr
+
+In the `swirl()` course menu, select **Getting and Cleaning Data** and complete the second lesson **2: Grouping and Chaining with dplyr** and answer the following questions.
+
+```{r, eval=FALSE}
+swirl()
+```
+
+> A. Complete the following code chunk by adding another pipe command at the end to turn the dataset into a dplyr type data set (this is the same `cran` data used extensively in this lesson). 
+
+Note that you will always have to escape swirl (`Esc`) to be able to run your own code.
+
+```{r}
+cran <- swirl:::swirl_courses_dir() %>% 
+  file.path(
+    "Getting_and_Cleaning_Data", 
+    "Grouping_and_Chaining_with_dplyr", 
+    "2014-07-08.csv"
+  ) %>%
+  read.csv(as.is = TRUE) # extend pipeline here
+
+
+cran
+```
+
+> B. Reproduce the last pipeline of the lesson (Hint: to pass linting, be mindful
+of the code style rule to put spaces around all so-called `infix` operators - i.e. 
+` = `, ` + `, ` ^ `, ` / `, etc.).
+
+```{r}
+# write pipeline here
+```
+
+> C. Highlight the new functions you just learned about on your dplyr cheatsheet.
+
+# 3. Tidying Data with tidyr
+
+In the `swirl()` course menu, select **Getting and Cleaning Data** and complete the third lesson **3: Tidying Data with tidyr** and answer the following questions.
+
+```{r, eval=FALSE}
+swirl()
+```
+
+> A. The below pipeline reads the SAT dataset discussed at the end of this lesson. Try to extend the pipeline with the last set of commands from the lessen (including the `select`, `gather`, `separate`, `group_by` and `mutate` to calculate the `total` and `prop` columns). Exclude the `print` so the result is stored in the `sat` object rather than piped onward to `print`.
+
+```{r}
+sat <- swirl:::swirl_courses_dir() %>% 
+  file.path(
+    "Getting_and_Cleaning_Data", 
+    "Tidying_Data_with_tidyr", 
+    "sat13.csv"
+  ) %>%
+  read.csv(as.is = TRUE) # extend pipeline here
+  
+
+sat
+```
+
+
+> B. Highlight the new functions you just learned about on your tidyr cheatsheet.
+
+# 4. Lint and knit/render
+
+> Make sure your code passes linting (`Lint current file` command from the `Addins` menu - shortcut `Alt/Option`+`Shift`+`L`) and knits succesfull (`Knit to HTML` in the `Knit` menu - `Cmd`+`Shift`+`K`). 
+
+# Automated checks (do not edit)
+
+The following are automatic checks for Travis.
+
+```{r "tests"}
+expect_true(exists("cran"))
+expect_is(cran, "tbl_df")
+expect_true(exists("sat"))
+expect_true(all(c("count", "total", "prop") %in% names(sat)))
+```
+
+
+
