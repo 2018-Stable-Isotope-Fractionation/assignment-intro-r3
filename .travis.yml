@@ -11,5 +11,6 @@ r_packages:
   - tidyverse
   - swirl
   - testthat
+  - glue
 os:
   - linux

@@ -18,6 +18,7 @@ editor_options:
 library(tidyverse)
 library(swirl)
 library(testthat)
+library(glue)
 ```
 
 # 1. `Tidy data` chapter in R for Data Science book
@@ -91,20 +92,32 @@ sat
 
 > B. Highlight the new functions you just learned about on your tidyr cheatsheet.
 
-# 4. Lint and knit/render
+# 4. Code checks
 
-> Make sure your code passes linting (`Lint current file` command from the `Addins` menu - shortcut `Alt/Option`+`Shift`+`L`) and knits succesfull (`Knit to HTML` in the `Knit` menu - `Cmd`+`Shift`+`K`). 
-
-# Automated checks (do not edit)
-
-The following are automatic checks for Travis.
+> The following are automated tests for Travis. Run the chunk to see if your code is complete and passes all the tests. The chunk will stop at the first test that does not pass. If you get an error, see if you can figure out what might be missing in your code (do not edit this chunk!). Once all tests run without errors, the file knits successfully (`Knit to HTML` in the `Knit` menu - `Cmd`+`Shift`+`K`), and your code passes linting (`Lint current file` command from the `Addins` menu - shortcut `Alt/Option`+`Shift`+`L`) without warnings, your assignment is ready for submission.
 
 ```{r "tests"}
-expect_true(exists("cran"))
-expect_is(cran, "tbl_df")
-expect_true(exists("sat"))
-expect_true(all(c("count", "total", "prop") %in% names(sat)))
+msg <- function(q, ...) glue("Problem with question {q}: ", ..., ".")
+
+expect_true(
+  exists("cran"), 
+  info = msg("2A", "'cran' object should exist but does not")
+)
+
+expect_is(
+  cran, "tbl_df",
+  info = msg("2A", "'cran' object is not a dplyr style data frame")
+) 
+
+expect_true(
+  exists("sat"),
+  info = msg("3A", "'sat' object should exist but does not")
+)
+
+expect_true(
+  all(c("count", "total", "prop") %in% names(sat)),
+  info = msg("3A", 
+             "'sat' object does not have all the expected columns: ",
+             "'count', 'total', 'prop'")
+)
 ```
-
-
-
