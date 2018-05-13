@@ -1,0 +1,9 @@
+---
+title: "Links to view assignment exercises"
+output: html_document
+---
+
+ - view [Assignment](assignment.html)
+ - view optional [R basics review](R_basics_review.html) 
+ 
+ 

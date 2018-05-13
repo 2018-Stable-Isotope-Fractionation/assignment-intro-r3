@@ -12,13 +12,10 @@ editor_options:
   chunk_output_type: inline
 ---
 
-
 ```{r "setup", echo=FALSE, message=FALSE, warning=FALSE}
 # load all the libraries
 library(tidyverse)
 library(swirl)
-library(testthat)
-library(glue)
 ```
 
 # 1. `Tidy data` chapter in R for Data Science book
@@ -96,7 +93,10 @@ sat
 
 > The following are automated tests for Travis. Run the chunk to see if your code is complete and passes all the tests. The chunk will stop at the first test that does not pass. If you get an error, see if you can figure out what might be missing in your code (do not edit this chunk!). Once all tests run without errors, the file knits successfully (`Knit to HTML` in the `Knit` menu - `Cmd`+`Shift`+`K`), and your code passes linting (`Lint current file` command from the `Addins` menu - shortcut `Alt/Option`+`Shift`+`L`) without warnings, your assignment is ready for submission.
 
-```{r "tests"}
+```{r "tests", echo = FALSE, warning=FALSE, message=FALSE}
+library(testthat)
+library(glue)
+
 msg <- function(q, ...) glue("Problem with question {q}: ", ..., ".")
 
 expect_true(
